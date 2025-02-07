@@ -34,8 +34,20 @@
 
     <arg name="config_dir" default="$(find hydra_ros)/config/uhumans2"/>
     <arg name="dataset_name" default="h2sl_indoor"/>
-    <arg name="semantic_map_path" default="$(find hydra_ros)/config/color/h2sl_indoor.csv"/> <!-- ade20k_outdoor" -->
     <arg name="semantic_label_remap_filepath" default=""/>
+
+    <!-- h2sl indoor vs outdoor toggle -->
+    <arg name="indoor" default="true" doc="Use h2sl_indoor configuration when true"/>
+
+    <arg name="indoor_map" value="$(find hydra_ros)/config/color/h2sl_indoor.csv"/>
+    <arg name="outdoor_map" value="$(find hydra_ros)/config/color/ade20k_outdoor.csv"/>
+
+    <arg name="semantic_map_path" default="$(arg indoor_map)" if="$(arg indoor)"/>
+    <arg name="semantic_map_path" default="$(arg outdoor_map)" unless="$(arg indoor)"/>
+
+    <arg name="labelspace_name" default="h2sl_indoor" if="$(arg indoor)"/>
+    <arg name="labelspace_name" default="ade20k_outdoor" unless="$(arg indoor)"/>
+
 
     <arg name="pipeline_path" default="$(find hydra_ros)/config/ros_pipeline.yaml"/>
     <arg name="input_config_path" default="$(find hydra_ros)/config/datasets/$(arg dataset_name).yaml"/>
@@ -46,7 +58,6 @@
     <arg name="ros_params_file" default="$(find hydra_ros)/config/ros_params.yaml"/>
     <!-- labelspace configuration -->
     <arg name="labelspace_dir" default="$(find hydra)/config/label_spaces"/>
-    <arg name="labelspace_name" default="h2sl_indoor" doc="semantic label space"/> <!-- ade20k_outdoor" -->
     <arg name="labelspace_path" default="$(arg labelspace_dir)/$(arg labelspace_name)_label_space.yaml"/>
 
     <!-- sensor configuration -->
