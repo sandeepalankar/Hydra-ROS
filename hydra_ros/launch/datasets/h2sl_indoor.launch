@@ -1,0 +1,50 @@
+<launch>
+    <arg name="sim_time_required" default="true"/>
+    <param name="use_sim_time" value="$(arg sim_time_required)"/>
+    rosparam set enable_statistics true
+
+    <arg name="config_dir" default="$(find hydra)/config/uhumans2"/>
+    <arg name="use_gt_frame" default="true" doc="use simulator-provided tf frame"/>
+    <arg name="use_gt_semantics" default="false" doc="use simulator-provided semantics"/>
+    <arg name="use_static_tfs" default="true" doc="publish static tfs from file"/>
+    <arg name="color_mesh_by_label" default="false" doc="display mesh colored by semantic label"/>
+    <arg name="use_oriented_bounding_boxes" default="false"/>
+    <arg name="use_2d_places" default="true"/>
+    <arg name="use_single_channel_label_image" default="false"/>
+    <arg name="rgb_image_transport" default="raw" doc="set image transport type (e.g., raw, compressed)"/>
+
+    <arg name="robot_frame" default="husky10/base_link" doc="robot body tf frame"/>
+    <arg name="odom_frame" default="husky10/odom" doc="odometry (map) frame"/>
+    <arg name="sensor_frame" default="husky10/forward_camera_link" doc="camera frame"/>
+
+    <!-- semantics -->
+    <arg name="labelspace_name" default="h2sl_indoor" doc="semantic label space"/>
+    <arg name="semantic_map_dir" default="$(find hydra_ros)/config/color" if="$(arg use_gt_semantics)"/>
+    <arg name="semantic_map_dir" default="$(find hydra_ros)/config/color" unless="$(arg use_gt_semantics)"/>
+    <arg name="semantic_map_path" default="$(arg semantic_map_dir)/$(arg labelspace_name).csv"/>
+    <arg name="semantic_label_remap_filepath" default="$(find hydra)/config/label_remaps/uhumans2_office.yaml" if="$(arg use_single_channel_label_image)"/>
+
+    <arg name="rgb_topic" default="/husky10/forward/color/image_raw"/>
+    <arg name="rgb_info_topic" default="/husky10/forward/color/camera_info"/>
+    <arg name="depth_topic" default="/husky10/forward/aligned_depth_to_color/image_raw"/>
+    <arg name="label_topic" default="/semantic/image_raw"/>
+
+    <include file="$(find hydra_ros)/launch/static_tfs/h2sl_indoor_static_tfs.xml" if="$(arg use_static_tfs)"/>
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="fake_world_tf" args="0 0 0 0 0 0 1 map world" if="$(arg use_gt_frame)"/>
+
+    <remap from="semantic_inference/color/image_raw" to="$(arg rgb_topic)"/>
+    <include file="$(find semantic_inference_ros)/launch/semantic_inference.launch"
+             pass_all_args="true"
+             unless="$(arg use_gt_semantics)">
+             <arg name="image_transport" value="$(arg rgb_image_transport)"/>
+        <arg name="enable_pointcloud" value="false"/>
+    </include>
+
+    <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
+        <arg name="dataset_name" default="h2sl_indoor"/>
+        <arg name="rviz_file" default="h2sl_indoor.rviz"/>
+    </include>
+
+</launch>
+
