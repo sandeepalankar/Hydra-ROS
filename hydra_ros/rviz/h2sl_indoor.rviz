@@ -1,0 +1,490 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 0
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Odometry1/Shape1
+      Splitter Ratio: 0.5406593680381775
+    Tree Height: 413
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        camera_imu_optical_frame:
+          Value: false
+        husky10/base:
+          Value: true
+        husky10/base_footprint:
+          Value: false
+        husky10/base_link:
+          Value: true
+        husky10/embedded_imu_link:
+          Value: false
+        husky10/forward_accel_frame:
+          Value: false
+        husky10/forward_accel_optical_frame:
+          Value: false
+        husky10/forward_aligned_depth_to_color_frame:
+          Value: false
+        husky10/forward_bottom_screw_frame:
+          Value: false
+        husky10/forward_camera_link:
+          Value: false
+        husky10/forward_color_frame:
+          Value: false
+        husky10/forward_color_optical_frame:
+          Value: false
+        husky10/forward_depth_frame:
+          Value: false
+        husky10/forward_depth_optical_frame:
+          Value: false
+        husky10/forward_gyro_frame:
+          Value: false
+        husky10/forward_infra1_frame:
+          Value: false
+        husky10/forward_infra1_optical_frame:
+          Value: false
+        husky10/forward_infra2_frame:
+          Value: false
+        husky10/forward_infra2_optical_frame:
+          Value: false
+        husky10/forward_left_ir_frame:
+          Value: false
+        husky10/forward_left_ir_optical_frame:
+          Value: false
+        husky10/forward_link:
+          Value: false
+        husky10/forward_right_ir_frame:
+          Value: false
+        husky10/forward_right_ir_optical_frame:
+          Value: false
+        husky10/front_bumper_link:
+          Value: false
+        husky10/imu_link:
+          Value: false
+        husky10/imu_link_base:
+          Value: false
+        husky10/inertial_link:
+          Value: false
+        husky10/os_imu:
+          Value: false
+        husky10/os_lidar:
+          Value: false
+        husky10/ouster_front_link:
+          Value: false
+        husky10/rear_bumper_link:
+          Value: false
+        husky10/sensor_plate_link:
+          Value: false
+        husky10/stereo_left_link:
+          Value: false
+        husky10/stereo_left_optical_frame:
+          Value: false
+        husky10/stereo_right_link:
+          Value: false
+        husky10/stereo_right_optical_frame:
+          Value: false
+        husky10/top_chassis_link:
+          Value: false
+        husky10/top_plate_link:
+          Value: false
+        husky10/ublox_link:
+          Value: false
+        husky10/user_rail_link:
+          Value: false
+        map:
+          Value: false
+        world:
+          Value: false
+      Marker Alpha: 1
+      Marker Scale: 5
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        husky10/base:
+          husky10/base_link:
+            husky10/base_footprint:
+              {}
+            husky10/embedded_imu_link:
+              {}
+            husky10/front_bumper_link:
+              {}
+            husky10/inertial_link:
+              {}
+            husky10/rear_bumper_link:
+              {}
+            husky10/sensor_plate_link:
+              husky10/forward_link:
+                husky10/forward_accel_frame:
+                  husky10/forward_accel_optical_frame:
+                    {}
+                husky10/forward_aligned_depth_to_color_frame:
+                  {}
+                husky10/forward_bottom_screw_frame:
+                  husky10/forward_camera_link:
+                    {}
+                husky10/forward_depth_frame:
+                  husky10/forward_color_frame:
+                    husky10/forward_color_optical_frame:
+                      {}
+                  husky10/forward_depth_optical_frame:
+                    {}
+                  husky10/forward_left_ir_frame:
+                    husky10/forward_left_ir_optical_frame:
+                      {}
+                  husky10/forward_right_ir_frame:
+                    husky10/forward_right_ir_optical_frame:
+                      {}
+                husky10/forward_gyro_frame:
+                  camera_imu_optical_frame:
+                    {}
+                husky10/forward_infra1_frame:
+                  husky10/forward_infra1_optical_frame:
+                    {}
+                husky10/forward_infra2_frame:
+                  husky10/forward_infra2_optical_frame:
+                    {}
+              husky10/imu_link:
+                husky10/imu_link_base:
+                  {}
+              husky10/ouster_front_link:
+                husky10/os_imu:
+                  {}
+                husky10/os_lidar:
+                  {}
+              husky10/stereo_left_link:
+                husky10/stereo_left_optical_frame:
+                  {}
+              husky10/stereo_right_link:
+                husky10/stereo_right_optical_frame:
+                  {}
+              husky10/ublox_link:
+                {}
+            husky10/top_chassis_link:
+              {}
+            husky10/top_plate_link:
+              {}
+            husky10/user_rail_link:
+              {}
+        map:
+          world:
+            {}
+      Update Interval: 0
+      Value: true
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /hydra_dsg_visualizer/dsg_markers
+          Name: Scene Graph (Static)
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /hydra_dsg_visualizer/dynamic_layers_viz
+          Name: Scene Graph (Dynamic)
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: kimera_pgmo_rviz/MeshDisplay
+          Cull Backfaces: true
+          Enable Lighting: false
+          Enabled: true
+          Name: Mesh
+          Queue Size: 10
+          Toggle Visibility All: true
+          Topic: /hydra_dsg_visualizer/dsg_mesh
+          Unreliable: false
+          Value: true
+          Visible: true
+      Enabled: true
+      Name: Scene Graph
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: Input Pointcloud
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.05000000074505806
+          Style: Squares
+          Topic: /husky10/lidar_points
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Class: rviz/Image
+          Enabled: true
+          Image Topic: /semantic_inference/semantic_color/image_raw
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: Semantics
+          Normalize Range: true
+          Queue Size: 2
+          Transport Hint: raw
+          Unreliable: false
+          Value: true
+        - Class: rviz/Image
+          Enabled: true
+          Image Topic: /husky10/forward/color/image_raw
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: RGB
+          Normalize Range: true
+          Queue Size: 2
+          Transport Hint: raw
+          Unreliable: false
+          Value: true
+      Enabled: true
+      Name: Input
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /incremental_dsg_builder_node/pgmo/deformation_graph_mesh_mesh
+          Name: Mesh Edges
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /incremental_dsg_builder_node/pgmo/deformation_graph_pose_mesh
+          Name: Pose-Mesh Edges
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+      Enabled: false
+      Name: Factor Graph
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/gvd_graph_viz
+          Name: GVD Graph
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/graph_viz
+          Name: Sparse GVD Graph
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/gvd_cluster_viz
+          Name: GVD Clusters
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/places/esdf_viz
+          Name: EsdfSlice
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+      Enabled: true
+      Name: Places
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/reconstruction/tsdf_viz
+          Name: TSDF Distances
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /hydra_ros_node/reconstruction/tsdf_weight_viz
+          Name: TSDF Weights
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /husky10/omnigraph/visuals
+          Name: MarkerArray
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+      Enabled: true
+      Name: Reconstruction
+    - Alpha: 0.5
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /husky10/map/cost/global
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 3
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Queue Size: 100
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 255; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /husky10/husky_velocity_controller/odom
+      Unreliable: false
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 250; 250; 255
+    Default Light: true
+    Fixed Frame: husky10/map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 61.323211669921875
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Field of View: 0.7853981852531433
+      Focal Point:
+        X: -4.500854969024658
+        Y: 4.135409832000732
+        Z: 6.399604797363281
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.4103982448577881
+      Target Frame: <Fixed Frame>
+      Yaw: 0.11500011384487152
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1016
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd000000010000000000000156000003a2fc0200000009fb0000000a00440065007000740068000000003b0000008d0000000000000000fb000000100044006900730070006c006100790073010000003b000001d8000000c700fffffffb0000001200530065006d0061006e00740069006300730100000219000000df0000001600fffffffb0000000600520047004201000002fe000000df0000001600fffffffb0000001200530065006c0065006300740069006f006e000000027e000000690000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007300000002c2000000750000005c00fffffffb0000000a0056006900650077007302000003ca000003a3000003070000010dfb0000000800540069006d006500000003d80000007d0000003700fffffffb0000000a0049006d0061006700650000000312000000cb00000000000000000000040f000003a200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  RGB:
+    collapsed: false
+  Selection:
+    collapsed: false
+  Semantics:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1387
+  X: 102
+  Y: 69
