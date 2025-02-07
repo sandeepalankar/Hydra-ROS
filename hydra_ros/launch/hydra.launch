@@ -1,10 +1,12 @@
 <launch>
     <!-- frame arguments -->
     <arg name="robot_id" default="0" doc="unique robot identifier"/>
-    <arg name="robot_frame" doc="robot base frame (i.e., robot pose)"/>
-    <arg name="odom_frame" default="odom" doc="robot map frame"/>
-    <arg name="map_frame" default="map" doc="backend scene graph frame"/>
-    <!-- topic arguments -->
+
+
+    <!-- <arg name="robot_frame" doc="robot base frame (i.e., robot pose)"/>
+    <arg name="odom_frame" default="odom" doc="robot map frame"/> 
+    <arg name="map_frame" default="map" doc="backend scene graph frame"/> 
+
     <arg name="pointcloud_topic" default="pointcloud"/>
     <arg name="rgb_info_topic" default="rgb/camera_info"/>
     <arg name="rgb_topic" default="rgb/image_raw"/>
@@ -13,11 +15,28 @@
     <arg name="enable_places" default="true"/>
     <arg name="rgb_image_transport" default="raw"/>
 
-    <!-- parameter files -->
     <arg name="config_dir"/>
     <arg name="dataset_name"/>
     <arg name="semantic_map_path"/>
+    <arg name="semantic_label_remap_filepath" default=""/> -->
+
+    <arg name="robot_frame" default="husky10/base_link" doc="robot base frame (i.e., robot pose)"/>
+    <arg name="odom_frame" default="husky10/odom" doc="robot odom frame"/>
+    <arg name="map_frame" default="husky10/map" doc="backend scene graph frame"/>
+
+    <arg name="pointcloud_topic" default="pointcloud"/>
+    <arg name="rgb_info_topic" default="/husky10/forward/color/camera_info"/>
+    <arg name="rgb_topic" default="/husky10/forward/color/image_raw"/>
+    <arg name="depth_topic" default="/husky10/forward/aligned_depth_to_color/image_raw"/>
+    <arg name="label_topic" default="/semantic/image_raw"/>
+    <arg name="enable_places" default="true"/>
+    <arg name="rgb_image_transport" default="raw"/>
+
+    <arg name="config_dir" default="$(find hydra_ros)/config/uhumans2"/>
+    <arg name="dataset_name" default="h2sl_indoor"/>
+    <arg name="semantic_map_path" default="$(find hydra_ros)/config/color/h2sl_indoor.csv"/> <!-- ade20k_outdoor" -->
     <arg name="semantic_label_remap_filepath" default=""/>
+
     <arg name="pipeline_path" default="$(find hydra_ros)/config/ros_pipeline.yaml"/>
     <arg name="input_config_path" default="$(find hydra_ros)/config/datasets/$(arg dataset_name).yaml"/>
     <arg name="reconstruction_config_path" default="$(arg config_dir)/reconstruction_config.yaml"/>
@@ -27,7 +46,7 @@
     <arg name="ros_params_file" default="$(find hydra_ros)/config/ros_params.yaml"/>
     <!-- labelspace configuration -->
     <arg name="labelspace_dir" default="$(find hydra)/config/label_spaces"/>
-    <arg name="labelspace_name"/>
+    <arg name="labelspace_name" default="h2sl_indoor" doc="semantic label space"/> <!-- ade20k_outdoor" -->
     <arg name="labelspace_path" default="$(arg labelspace_dir)/$(arg labelspace_name)_label_space.yaml"/>
 
     <!-- sensor configuration -->
@@ -64,6 +83,7 @@
     <arg name="zmq_send_url" default="tcp://$(arg zmq_ip):8001"/>
     <arg name="zmq_recv_url" default="tcp://$(arg zmq_ip):8002"/>
     <arg name="zmq_publish_mesh" default="true"/>
+    
     <!-- misc visualization -->
     <arg name="start_visualizer" default="true"/>
     <arg name="start_pose_graph_viewer" default="false"/>
@@ -79,10 +99,10 @@
     <arg name="dsg_output_prefix" default="$(arg dataset_name)"/>
     <arg name="log_timing_incrementally" default="false"/>
     <arg name="dsg_path" default="$(arg dsg_output_dir)/$(arg dsg_output_prefix)"/>
-    <arg name="start_logger" default="false"/>
+    <arg name="start_logger" default="true"/>
     <!-- log message controls -->
     <arg name="min_glog_level" default="0"/>
-    <arg name="verbosity" default="0"/>
+    <arg name="verbosity" default="0"/> 
     <arg name="glog_to_file" default="false"/>
     <arg name="glog_dir" if="$(arg glog_to_file)"/>
     <arg name="glog_file_args" value="--logtostderr=0 --log_dir=$(arg glog_dir)" if="$(arg glog_to_file)"/>
@@ -115,7 +135,9 @@
         <remap from="~rgb/image_raw/compressed" to="$(arg rgb_topic)/compressed"/>
         <remap from="~rgb/camera_info" to="$(arg rgb_info_topic)"/>
         <remap from="~depth_registered/image_rect" to="$(arg depth_topic)"/>
-        <remap from="~semantic/image_raw" to="$(arg label_topic)"/>
+        
+        <remap from="~semantic/image_raw" to="/semantic_inference/semantic/image_raw"/> 
+        
         <!-- image transport -->
         <param name="rgb/image_transport" value="$(arg rgb_image_transport)"/>
 
