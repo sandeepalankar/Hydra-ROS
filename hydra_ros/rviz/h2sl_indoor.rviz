@@ -4,6 +4,8 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
+        - /TF1/Frames1
         - /Odometry1/Shape1
       Splitter Ratio: 0.5406593680381775
     Tree Height: 413
@@ -24,7 +26,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: Semantics
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -46,7 +48,7 @@ Visualization Manager:
         husky10/base_footprint:
           Value: false
         husky10/base_link:
-          Value: true
+          Value: false
         husky10/embedded_imu_link:
           Value: false
         husky10/forward_accel_frame:
@@ -89,11 +91,19 @@ Visualization Manager:
           Value: false
         husky10/front_bumper_link:
           Value: false
+        husky10/front_left_wheel_link:
+          Value: false
+        husky10/front_right_wheel_link:
+          Value: false
         husky10/imu_link:
           Value: false
         husky10/imu_link_base:
           Value: false
         husky10/inertial_link:
+          Value: false
+        husky10/map:
+          Value: false
+        husky10/odom:
           Value: false
         husky10/os_imu:
           Value: false
@@ -102,6 +112,10 @@ Visualization Manager:
         husky10/ouster_front_link:
           Value: false
         husky10/rear_bumper_link:
+          Value: false
+        husky10/rear_left_wheel_link:
+          Value: false
+        husky10/rear_right_wheel_link:
           Value: false
         husky10/sensor_plate_link:
           Value: false
@@ -132,71 +146,81 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        husky10/base:
-          husky10/base_link:
-            husky10/base_footprint:
-              {}
-            husky10/embedded_imu_link:
-              {}
-            husky10/front_bumper_link:
-              {}
-            husky10/inertial_link:
-              {}
-            husky10/rear_bumper_link:
-              {}
-            husky10/sensor_plate_link:
-              husky10/forward_link:
-                husky10/forward_accel_frame:
-                  husky10/forward_accel_optical_frame:
-                    {}
-                husky10/forward_aligned_depth_to_color_frame:
+        husky10/map:
+          husky10/odom:
+            husky10/base:
+              husky10/base_link:
+                husky10/base_footprint:
                   {}
-                husky10/forward_bottom_screw_frame:
-                  husky10/forward_camera_link:
-                    {}
-                husky10/forward_depth_frame:
-                  husky10/forward_color_frame:
-                    husky10/forward_color_optical_frame:
+                husky10/embedded_imu_link:
+                  {}
+                husky10/front_bumper_link:
+                  {}
+                husky10/front_left_wheel_link:
+                  {}
+                husky10/front_right_wheel_link:
+                  {}
+                husky10/inertial_link:
+                  {}
+                husky10/rear_bumper_link:
+                  {}
+                husky10/rear_left_wheel_link:
+                  {}
+                husky10/rear_right_wheel_link:
+                  {}
+                husky10/sensor_plate_link:
+                  husky10/forward_link:
+                    husky10/forward_accel_frame:
+                      husky10/forward_accel_optical_frame:
+                        {}
+                    husky10/forward_aligned_depth_to_color_frame:
+                      husky10/forward_color_optical_frame:
+                        {}
+                    husky10/forward_bottom_screw_frame:
+                      husky10/forward_camera_link:
+                        {}
+                    husky10/forward_color_frame:
                       {}
-                  husky10/forward_depth_optical_frame:
-                    {}
-                  husky10/forward_left_ir_frame:
-                    husky10/forward_left_ir_optical_frame:
+                    husky10/forward_depth_frame:
+                      husky10/forward_depth_optical_frame:
+                        {}
+                      husky10/forward_left_ir_frame:
+                        husky10/forward_left_ir_optical_frame:
+                          {}
+                      husky10/forward_right_ir_frame:
+                        husky10/forward_right_ir_optical_frame:
+                          {}
+                    husky10/forward_gyro_frame:
+                      camera_imu_optical_frame:
+                        {}
+                    husky10/forward_infra1_frame:
+                      husky10/forward_infra1_optical_frame:
+                        {}
+                    husky10/forward_infra2_frame:
+                      husky10/forward_infra2_optical_frame:
+                        {}
+                  husky10/imu_link:
+                    husky10/imu_link_base:
                       {}
-                  husky10/forward_right_ir_frame:
-                    husky10/forward_right_ir_optical_frame:
+                  husky10/ouster_front_link:
+                    husky10/os_imu:
                       {}
-                husky10/forward_gyro_frame:
-                  camera_imu_optical_frame:
+                    husky10/os_lidar:
+                      {}
+                  husky10/stereo_left_link:
+                    husky10/stereo_left_optical_frame:
+                      {}
+                  husky10/stereo_right_link:
+                    husky10/stereo_right_optical_frame:
+                      {}
+                  husky10/ublox_link:
                     {}
-                husky10/forward_infra1_frame:
-                  husky10/forward_infra1_optical_frame:
-                    {}
-                husky10/forward_infra2_frame:
-                  husky10/forward_infra2_optical_frame:
-                    {}
-              husky10/imu_link:
-                husky10/imu_link_base:
+                husky10/top_chassis_link:
                   {}
-              husky10/ouster_front_link:
-                husky10/os_imu:
+                husky10/top_plate_link:
                   {}
-                husky10/os_lidar:
+                husky10/user_rail_link:
                   {}
-              husky10/stereo_left_link:
-                husky10/stereo_left_optical_frame:
-                  {}
-              husky10/stereo_right_link:
-                husky10/stereo_right_optical_frame:
-                  {}
-              husky10/ublox_link:
-                {}
-            husky10/top_chassis_link:
-              {}
-            husky10/top_plate_link:
-              {}
-            husky10/user_rail_link:
-              {}
         map:
           world:
             {}
@@ -209,7 +233,22 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dsg_markers
           Name: Scene Graph (Static)
           Namespaces:
-            {}
+            interlayer_edges_3_2: true
+            interlayer_edges_4_3: true
+            interlayer_edges_5_4: true
+            layer_bounding_boxes_2: true
+            layer_bounding_boxes_edges_2: true
+            layer_edges_20: true
+            layer_edges_3: true
+            layer_labels_2: true
+            layer_labels_4: true
+            layer_labels_5: true
+            layer_nodes_2: true
+            layer_nodes_20: true
+            layer_nodes_3: true
+            layer_nodes_4: true
+            layer_nodes_5: true
+            layer_polygon_boundaries_20: true
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -230,7 +269,11 @@ Visualization Manager:
           Topic: /hydra_dsg_visualizer/dsg_mesh
           Unreliable: false
           Value: true
-          Visible: true
+          Visible:
+            Value: true
+            robot0:
+              Value: true
+              dsg_mesh: true
       Enabled: true
       Name: Scene Graph
     - Class: rviz/Group
@@ -247,7 +290,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: Intensity
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -262,7 +305,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Class: rviz/Image
           Enabled: true
           Image Topic: /semantic_inference/semantic_color/image_raw
@@ -368,7 +411,9 @@ Visualization Manager:
           Marker Topic: /husky10/omnigraph/visuals
           Name: MarkerArray
           Namespaces:
-            {}
+            icp_factor: true
+            loop_close_factor: true
+            odometry_factor: true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -420,7 +465,7 @@ Visualization Manager:
       Value: true
   Enabled: true
   Global Options:
-    Background Color: 250; 250; 255
+    Background Color: 191; 191; 195
     Default Light: true
     Fixed Frame: husky10/map
     Frame Rate: 30
@@ -446,7 +491,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 61.323211669921875
+      Distance: 47.322669982910156
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -454,17 +499,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -4.500854969024658
-        Y: 4.135409832000732
-        Z: 6.399604797363281
+        X: -5.349004745483398
+        Y: -10.760655403137207
+        Z: 17.166170120239258
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4103982448577881
+      Pitch: 0.3253980576992035
       Target Frame: <Fixed Frame>
-      Yaw: 0.11500011384487152
+      Yaw: 1.5350033044815063
     Saved: ~
 Window Geometry:
   Displays:
@@ -486,5 +531,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1387
-  X: 102
-  Y: 69
+  X: 533
+  Y: 387

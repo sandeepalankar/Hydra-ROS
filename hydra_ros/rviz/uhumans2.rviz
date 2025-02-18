@@ -4,6 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
         - /Scene Graph1
       Splitter Ratio: 0.5
     Tree Height: 871
@@ -45,8 +46,6 @@ Visualization Manager:
           Value: true
         left_cam:
           Value: true
-        map:
-          Value: true
         rear_lidar:
           Value: true
         right_cam:
@@ -60,17 +59,16 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        map:
-          world:
-            base_link_gt:
-              front_lidar:
-                {}
-              left_cam:
-                {}
-              rear_lidar:
-                {}
-              right_cam:
-                {}
+        world:
+          base_link_gt:
+            front_lidar:
+              {}
+            left_cam:
+              {}
+            rear_lidar:
+              {}
+            right_cam:
+              {}
       Update Interval: 0
       Value: true
     - Class: rviz/Group
@@ -80,22 +78,7 @@ Visualization Manager:
           Marker Topic: /hydra_dsg_visualizer/dsg_markers
           Name: Scene Graph (Static)
           Namespaces:
-            interlayer_edges_3_2: true
-            interlayer_edges_4_3: true
-            interlayer_edges_5_4: true
-            layer_bounding_boxes_2: true
-            layer_bounding_boxes_edges_2: true
-            layer_edges_20: true
-            layer_edges_3: true
-            layer_labels_2: true
-            layer_labels_4: true
-            layer_labels_5: true
-            layer_nodes_2: true
-            layer_nodes_20: true
-            layer_nodes_3: true
-            layer_nodes_4: true
-            layer_nodes_5: true
-            layer_polygon_boundaries_20: true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -116,11 +99,7 @@ Visualization Manager:
           Topic: /hydra_dsg_visualizer/dsg_mesh
           Unreliable: false
           Value: true
-          Visible:
-            Value: true
-            robot0:
-              Value: true
-              dsg_mesh: true
+          Visible: true
       Enabled: true
       Name: Scene Graph
     - Class: rviz/Group
@@ -267,11 +246,26 @@ Visualization Manager:
           Value: false
       Enabled: true
       Name: Reconstruction
+    - Class: mesh_rviz_plugins/TexturedMesh
+      Enabled: true
+      Name: TexturedMesh
+      Normal Size: 0.05000000074505806
+      Phong Shading: true
+      Point Size: 1
+      Polygon Mode: WIREFRAME
+      PolygonMesh Topic: /kimera_vio_ros/mesh
+      Queue Size: 25
+      Scene Color Scale: 1
+      Shader Program: TEXTURE
+      Show Normals: false
+      Texture Transport Hint: raw
+      Texture topic: ""
+      Value: true
   Enabled: true
   Global Options:
-    Background Color: 255; 255; 255
+    Background Color: 168; 168; 168
     Default Light: true
-    Fixed Frame: map
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -295,7 +289,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 32.54032516479492
+      Distance: 24.16510009765625
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -303,17 +297,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -9.634339332580566
-        Y: 23.9942626953125
-        Z: 10.865774154663086
+        X: -11.190023422241211
+        Y: 24.180465698242188
+        Z: 5.44931173324585
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7147967219352722
+      Pitch: 0.29979729652404785
       Target Frame: <Fixed Frame>
-      Yaw: 3.111708164215088
+      Yaw: 1.626706600189209
     Saved: ~
 Window Geometry:
   Depth:
@@ -337,5 +331,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1920
-  X: 364
-  Y: 69
+  X: 2213
+  Y: 322

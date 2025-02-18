@@ -41,7 +41,7 @@
         <arg name="enable_pointcloud" value="false"/>
     </include>
 
-    <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
+    <include file="$(find hydra_ros)/launch/h2sl_hydra.launch" pass_all_args="true">
         <arg name="dataset_name" default="h2sl_outdoor"/>
         <arg name="rviz_file" default="h2sl_indoor.rviz"/>
     </include>
