@@ -12,6 +12,7 @@
     <arg name="use_2d_places" default="true"/>
     <arg name="use_single_channel_label_image" default="false"/>
     <arg name="rgb_image_transport" default="raw" doc="set image transport type (e.g., raw, compressed)"/>
+    <arg name="indoor" default="false" doc="Use h2sl_indoor configuration when true"/>
 
     <arg name="robot_frame" default="husky10/base_link" doc="robot body tf frame"/>
     <arg name="odom_frame" default="husky10/odom" doc="odometry (map) frame"/>

@@ -19,7 +19,7 @@
     <arg name="semantic_label_remap_filepath" default=""/>
 
     <!-- h2sl indoor vs outdoor toggle -->
-    <arg name="indoor" default="false" doc="Use h2sl_indoor configuration when true"/>
+    <arg name="indoor" default="true" doc="Use h2sl_indoor configuration when true"/>
 
     <arg name="indoor_map" value="$(find hydra_ros)/config/color/h2sl_indoor.csv"/>
     <arg name="outdoor_map" value="$(find hydra_ros)/config/color/ade20k_outdoor.csv"/>
