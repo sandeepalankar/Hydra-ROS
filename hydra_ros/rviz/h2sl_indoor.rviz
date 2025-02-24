@@ -240,6 +240,7 @@ Visualization Manager:
             layer_bounding_boxes_edges_2: true
             layer_edges_20: true
             layer_edges_3: true
+            layer_edges_4: true
             layer_labels_2: true
             layer_labels_4: true
             layer_labels_5: true
@@ -491,7 +492,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 47.322669982910156
+      Distance: 54.41385269165039
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -499,17 +500,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -5.349004745483398
-        Y: -10.760655403137207
-        Z: 17.166170120239258
+        X: -12.595799446105957
+        Y: 9.974136352539062
+        Z: 16.876544952392578
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3253980576992035
+      Pitch: 0.1703980565071106
       Target Frame: <Fixed Frame>
-      Yaw: 1.5350033044815063
+      Yaw: 6.238189697265625
     Saved: ~
 Window Geometry:
   Displays:
@@ -531,5 +532,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1387
-  X: 533
-  Y: 387
+  X: 499
+  Y: 283
