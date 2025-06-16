@@ -5,7 +5,7 @@ repositories:
     version: main
   hydra:
     type: git
-    url: https://github.com/sandeepalankar/hydra.git
+    url: https://github.com/sandeepalankar/Hydra.git
     version: develop
   hydra_ros:
     type: git
