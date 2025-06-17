@@ -23,7 +23,7 @@ launch:
   - arg: {name: extra_yaml, default: '{}'}
   # output
   - arg: {name: log_name, default: $(var dataset), description: Subdirectory to output to}
-  - arg: {name: log_path, default: $(env HOME)/.hydra/$(var log_name), description: Directory to output to}
+  - arg: {name: log_path, default: /hydra-jazzy/src/hydra/output/$(var log_name), description: Directory to output to}
   - arg: {name: exit_after_clock, default: 'false', description: Shutdown hydra node after a rosbag finishes playing}
   - arg: {name: enable_zmq, default: 'false', description: Turn on zmq-based publishing for scene graph}
   - arg: {name: zmq_url, default: tcp://127.0.0.1:8001, description: ZMQ publish url}
