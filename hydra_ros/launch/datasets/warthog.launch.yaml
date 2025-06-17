@@ -1,0 +1,35 @@
+---
+launch:
+  - arg: {name: scene, default: office, description: uhumans2 scene name}
+  - arg: {name: use_gt_semantics, default: 'false'}
+  - arg: {name: labelspace, default: ade20k_full}
+  - arg: {name: log_prefix, default: warthog}
+
+  - set_remap: {from: hydra/input/left_cam/depth_registered/image_rect, to: /willow/sensors/multisense_front/left/depth}
+  - set_remap: {from: hydra/input/left_cam/rgb/image_raw, to: /willow/sensors/multisense_front/aux/image_rect_color}
+  - set_remap: {from: hydra/input/left_cam/rgb/camera_info, to: /willow/sensors/multisense_front/aux/image_rect_color/camera_info}
+  - set_remap: {from: hydra/input/left_cam/depth/camera_info, to: /willow/sensors/multisense_front/left/depth/camera_info}
+  - set_remap: {from: hydra/input/left_cam/semantic/image_raw, to: semantic/image_raw}
+  - let: {name: extra_yaml_no_gt, value: '{}'}
+
+  # set up semantic inference if not using ground truth semantics
+  - group:
+    - set_remap: {from: color/image_raw, to: /willow/sensors/multisense_front/aux/image_rect_color}
+    - include:
+        if: $(not $(var use_gt_semantics))
+        file: $(find-pkg-share semantic_inference_ros)/launch/closed_set.launch.yaml
+        arg:
+          - {name: labelspace_name, value: $(var labelspace)}
+
+  # include hydra launch
+  - include:
+      file: $(find-pkg-share hydra_ros)/launch/hydra.launch.yaml
+      arg:
+        - {name: dataset, value: warthog}
+        - {name: labelspace, value: $(var labelspace)}
+        - {name: log_prefix, value: $(var log_prefix)}
+        - {name: sensor_frame, value: multisense_front_left_camera_optical_frame}
+        - {name: robot_frame, value: base_link}
+        - {name: odom_frame, value: odom}
+        - {name: map_frame, value: map}
+        - {name: extra_yaml, value: $(var extra_yaml_no_gt)}
