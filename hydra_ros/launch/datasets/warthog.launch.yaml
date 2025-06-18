@@ -1,20 +1,24 @@
 ---
 launch:
+  - arg: {name: robot_name, default: willow, description: warthog name}
   - arg: {name: scene, default: office, description: uhumans2 scene name}
   - arg: {name: use_gt_semantics, default: 'false'}
   - arg: {name: labelspace, default: ade20k_full}
-  - arg: {name: log_prefix, default: warthog}
+  - arg: {name: log_prefix, default: '$(var robot_name)'}
+  - arg: {name: enable_lcd, default: 'false', description: Enable loop closure detection}
+  - arg: {name: glog_verbosity, default: '0', description: Logging verbosity}
 
-  - set_remap: {from: hydra/input/left_cam/depth_registered/image_rect, to: /willow/sensors/multisense_front/left/depth}
-  - set_remap: {from: hydra/input/left_cam/rgb/image_raw, to: /willow/sensors/multisense_front/aux/image_rect_color}
-  - set_remap: {from: hydra/input/left_cam/rgb/camera_info, to: /willow/sensors/multisense_front/aux/image_rect_color/camera_info}
-  - set_remap: {from: hydra/input/left_cam/depth/camera_info, to: /willow/sensors/multisense_front/left/depth/camera_info}
+  - set_remap: {from: hydra/input/left_cam/depth_registered/image_rect, to: /$(var robot_name)/sensors/multisense_front/left/depth}
+  - set_remap: {from: hydra/input/left_cam/rgb/image_raw, to: /$(var robot_name)/sensors/multisense_front/aux/image_rect_color}
+  - set_remap: {from: hydra/input/left_cam/rgb/camera_info, to: /$(var robot_name)/sensors/multisense_front/aux/image_rect_color/camera_info}
+  - set_remap: {from: hydra/input/left_cam/depth/camera_info, to: /$(var robot_name)/sensors/multisense_front/left/depth/camera_info}
   - set_remap: {from: hydra/input/left_cam/semantic/image_raw, to: semantic/image_raw}
-  - let: {name: extra_yaml_no_gt, value: '{}'}
+  - let: {name: extra_yaml_no_gt, value: '{qos_overrides: {"/hydra/input/left_cam/rgb/image_raw": {reliability: best_effort, durability: volatile, history: keep_last, deadline: {sec: 0, nsec: 0}, lifespan: {sec: 0, nsec: 0}, liveliness: automatic, liveliness_lease_duration: {sec: 0, nsec: 0}, avoid_ros_namespace_conventions: false}, "/hydra/input/left_cam/depth_registered/image_rect": {reliability: best_effort, durability: volatile, history: keep_last, deadline: {sec: 0, nsec: 0}, lifespan: {sec: 0, nsec: 0}, liveliness: automatic, liveliness_lease_duration: {sec: 0, nsec: 0}, avoid_ros_namespace_conventions: false}}}'}
+  # - let: {name: extra_yaml_no_gt, value: '{qos_overrides: {"/hydra/input/left_cam/rgb/image_raw": {reliability: best_effort, durability: volatile, history: keep_last, history_depth: 2200, deadline: {sec: 0, nsec: 0}, lifespan: {sec: 0, nsec: 0}, liveliness: automatic, liveliness_lease_duration: {sec: 0, nsec: 0}, avoid_ros_namespace_conventions: false}, "/hydra/input/left_cam/depth_registered/image_rect": {reliability: best_effort, durability: volatile, history: keep_last, history_depth: 2200, deadline: {sec: 0, nsec: 0}, lifespan: {sec: 0, nsec: 0}, liveliness: automatic, liveliness_lease_duration: {sec: 0, nsec: 0}, avoid_ros_namespace_conventions: false}}}'}
 
   # set up semantic inference if not using ground truth semantics
   - group:
-    - set_remap: {from: color/image_raw, to: /willow/sensors/multisense_front/aux/image_rect_color}
+    - set_remap: {from: color/image_raw, to: /$(var robot_name)/sensors/multisense_front/aux/image_rect_color}
     - include:
         if: $(not $(var use_gt_semantics))
         file: $(find-pkg-share semantic_inference_ros)/launch/closed_set.launch.yaml
@@ -28,8 +32,11 @@ launch:
         - {name: dataset, value: warthog}
         - {name: labelspace, value: $(var labelspace)}
         - {name: log_prefix, value: $(var log_prefix)}
-        - {name: sensor_frame, value: multisense_front_left_camera_optical_frame}
-        - {name: robot_frame, value: base_link}
-        - {name: odom_frame, value: odom}
-        - {name: map_frame, value: map}
+        - {name: sensor_frame, value: $(var robot_name)/multisense_front_left_camera_optical_frame}
+        - {name: robot_frame, value: $(var robot_name)/base_link}
+        - {name: odom_frame, value: $(var robot_name)/odom}
+        - {name: map_frame, value: $(var robot_name)/map}
+        - {name: robot_id, value: $(var robot_name)}
+        - {name: enable_lcd, value: $(var enable_lcd)}
+        - {name: glog_verbosity, value: $(var glog_verbosity)}
         - {name: extra_yaml, value: $(var extra_yaml_no_gt)}
