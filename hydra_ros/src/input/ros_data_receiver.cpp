@@ -36,11 +36,48 @@
 
 #include <config_utilities/config.h>
 #include <ianvs/node_handle_factory.h>
+#include <rclcpp/qos.hpp>
 
 namespace hydra {
 
 inline std::string getNamespace(const std::string& ns, const std::string& name) {
   return ns.empty() ? "~/input/" + name : ns;
+}
+
+rclcpp::QoS QoSConfig::toQoS() const {
+  rclcpp::QoS qos(depth);
+  
+  // Set reliability
+  if (reliability == "reliable") {
+    qos.reliable();
+  } else if (reliability == "best_effort") {
+    qos.best_effort();
+  }
+  
+  // Set durability
+  if (durability == "transient_local") {
+    qos.transient_local();
+  } else if (durability == "volatile") {
+    qos.durability_volatile();
+  }
+  
+  // Set history
+  if (history == "keep_all") {
+    qos.keep_all();
+  } else if (history == "keep_last") {
+    qos.keep_last(depth);
+  }
+  
+  return qos;
+}
+
+void declare_config(QoSConfig& config) {
+  using namespace config;
+  name("QoSConfig");
+  field(config.reliability, "reliability");
+  field(config.durability, "durability");
+  field(config.history, "history");
+  field(config.depth, "depth");
 }
 
 void declare_config(RosDataReceiver::Config& config) {
@@ -49,6 +86,7 @@ void declare_config(RosDataReceiver::Config& config) {
   base<DataReceiver::Config>(config);
   field(config.ns, "ns");
   field(config.queue_size, "queue_size");
+  field(config.qos, "qos");
 }
 
 RosDataReceiver::RosDataReceiver(const Config& config, const std::string& sensor_name)

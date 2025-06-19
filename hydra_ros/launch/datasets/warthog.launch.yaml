@@ -3,7 +3,7 @@ launch:
   - arg: {name: robot_name, default: willow, description: warthog name}
   - arg: {name: scene, default: office, description: uhumans2 scene name}
   - arg: {name: use_gt_semantics, default: 'false'}
-  - arg: {name: labelspace, default: ade20k_full}
+  - arg: {name: labelspace, default: ade20k_outdoor}
   - arg: {name: log_prefix, default: '$(var robot_name)'}
   - arg: {name: enable_lcd, default: 'false', description: Enable loop closure detection}
   - arg: {name: glog_verbosity, default: '0', description: Logging verbosity}
@@ -32,7 +32,7 @@ launch:
         - {name: dataset, value: warthog}
         - {name: labelspace, value: $(var labelspace)}
         - {name: log_prefix, value: $(var log_prefix)}
-        - {name: sensor_frame, value: $(var robot_name)/multisense_front_left_camera_optical_frame}
+        - {name: sensor_frame, value: $(var robot_name)/sensors/multisense_front/left_camera_optical_frame}
         - {name: robot_frame, value: $(var robot_name)/base_link}
         - {name: odom_frame, value: $(var robot_name)/odom}
         - {name: map_frame, value: $(var robot_name)/map}

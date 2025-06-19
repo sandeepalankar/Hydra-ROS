@@ -87,7 +87,7 @@ PoseStatus lookupTransform(const tf2_ros::Buffer& buffer,
 
   bool have_transform = false;
   std::string err_str;
-  VLOG(verbosity) << "Looking up transform " << target << "_T_" << source
+  VLOG(verbosity) << "Looking up transform from " << source << " to " << target
                   << stamp_suffix;
 
   const auto lookup_time = stamp.value_or(rclcpp::Time());
@@ -112,7 +112,7 @@ PoseStatus lookupTransform(const tf2_ros::Buffer& buffer,
   }
 
   if (!have_transform) {
-    LOG(ERROR) << "Failed to find: " << target << "_T_" << source << stamp_suffix
+    LOG(ERROR) << "Failed to find transform from " << source << " to " << target << stamp_suffix
                << ": " << err_str;
     return {false, {}, {}};
   }
@@ -121,7 +121,7 @@ PoseStatus lookupTransform(const tf2_ros::Buffer& buffer,
   try {
     transform = buffer.lookupTransform(target, source, lookup_time);
   } catch (const tf2::TransformException& ex) {
-    LOG(ERROR) << "Failed to look up: " << target << "_T_" << source << stamp_suffix;
+    LOG(ERROR) << "Failed to look up transform from " << source << " to " << target << stamp_suffix;
     return {false, {}, {}};
   }
 

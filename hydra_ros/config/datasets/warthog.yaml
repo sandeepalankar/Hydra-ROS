@@ -17,6 +17,6 @@ input:
         max_range: 5.0
         extrinsics:
           type: ros
-          sensor_frame: willow/multisense_front_left_camera_optical_frame
+          sensor_frame: willow/sensors/multisense_front/left_camera_optical_frame
           robot_frame: willow/base_link
 

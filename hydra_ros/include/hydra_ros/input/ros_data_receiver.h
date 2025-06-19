@@ -33,16 +33,31 @@
  * purposes notwithstanding any copyright notation herein.
  * -------------------------------------------------------------------------- */
 #pragma once
+#include <config_utilities/config.h>
 #include <hydra/input/data_receiver.h>
 #include <ianvs/node_handle.h>
+#include <rclcpp/qos.hpp>
+#include <string>
 
 namespace hydra {
+
+struct QoSConfig {
+  std::string reliability = "best_effort";
+  std::string durability = "volatile";
+  std::string history = "keep_all";
+  size_t depth = 10;
+  
+  rclcpp::QoS toQoS() const;
+};
+
+void declare_config(QoSConfig& config);
 
 class RosDataReceiver : public DataReceiver {
  public:
   struct Config : DataReceiver::Config {
     std::string ns;
     size_t queue_size = 10;
+    QoSConfig qos;
   } const config;
 
   RosDataReceiver(const Config& config, const std::string& name);

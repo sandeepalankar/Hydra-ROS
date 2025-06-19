@@ -36,6 +36,8 @@
 #include <ianvs/node_handle.h>
 #include <message_filters/subscriber.h>
 #include <message_filters/sync_policies/approximate_time.h>
+#include <message_filters/synchronizer.h>
+#include <rclcpp/qos.hpp>
 
 #include <rclcpp/time.hpp>
 #include <semantic_inference_msgs/msg/feature_image.hpp>
@@ -48,11 +50,19 @@ namespace hydra {
 
 template <typename MsgT>
 struct FilterSub : public message_filters::SimpleFilter<MsgT> {
-  FilterSub(ianvs::NodeHandle nh, const std::string& topic, uint32_t queue_size)
+  FilterSub(ianvs::NodeHandle nh, 
+            const std::string& topic, 
+            const rclcpp::QoS& qos)
       : subscriber(nh.create_subscription<MsgT>(
-            topic, queue_size, [this](const typename MsgT::ConstSharedPtr& msg) {
+            topic, qos, [this](const typename MsgT::ConstSharedPtr& msg) {
               this->signalMessage(msg);
             })) {}
+
+  // Legacy constructor for backward compatibility
+  FilterSub(ianvs::NodeHandle nh, 
+            const std::string& topic, 
+            uint32_t queue_size)
+      : FilterSub(nh, topic, rclcpp::QoS(queue_size)) {}
 
   typename rclcpp::Subscription<MsgT>::SharedPtr subscriber;
 };
@@ -64,6 +74,7 @@ struct ColorSubscriber {
 
   ColorSubscriber();
   explicit ColorSubscriber(ianvs::NodeHandle nh, uint32_t queue_size = 1);
+  explicit ColorSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos);
   virtual ~ColorSubscriber();
 
   Filter& getFilter() const;
@@ -80,6 +91,7 @@ struct DepthSubscriber {
 
   DepthSubscriber();
   explicit DepthSubscriber(ianvs::NodeHandle nh, uint32_t queue_size = 1);
+  explicit DepthSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos);
   virtual ~DepthSubscriber();
 
   Filter& getFilter() const;
@@ -96,6 +108,7 @@ struct LabelSubscriber {
 
   LabelSubscriber();
   explicit LabelSubscriber(ianvs::NodeHandle nh, uint32_t queue_size = 1);
+  explicit LabelSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos);
   virtual ~LabelSubscriber();
 
   Filter& getFilter() const;
@@ -112,6 +125,7 @@ struct FeatureSubscriber {
 
   FeatureSubscriber();
   explicit FeatureSubscriber(ianvs::NodeHandle nh, uint32_t queue_size = 1);
+  explicit FeatureSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos);
   virtual ~FeatureSubscriber();
 
   Filter& getFilter() const;
@@ -155,10 +169,11 @@ ImageReceiverImpl<SemanticT>::ImageReceiverImpl(const Config& config,
 
 template <typename SemanticT>
 bool ImageReceiverImpl<SemanticT>::initImpl() {
-  color_sub_ = ColorSubscriber(getHydraNodeHandle(ns_));
-  depth_sub_ = DepthSubscriber(getHydraNodeHandle(ns_));
-  semantic_sub_ = SemanticT(getHydraNodeHandle(ns_));
-  sync_.reset(new Synchronizer(Policy(config.queue_size),
+  const auto qos = this->config.qos.toQoS();
+  color_sub_ = ColorSubscriber(getHydraNodeHandle(ns_), qos);
+  depth_sub_ = DepthSubscriber(getHydraNodeHandle(ns_), qos);
+  semantic_sub_ = SemanticT(getHydraNodeHandle(ns_), qos);
+  sync_.reset(new Synchronizer(Policy(this->config.queue_size),
                                color_sub_.getFilter(),
                                depth_sub_.getFilter(),
                                semantic_sub_.getFilter()));

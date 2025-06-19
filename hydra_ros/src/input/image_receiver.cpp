@@ -47,7 +47,10 @@ using sensor_msgs::msg::Image;
 ColorSubscriber::ColorSubscriber() = default;
 
 ColorSubscriber::ColorSubscriber(ianvs::NodeHandle nh, uint32_t queue_size)
-    : impl_(std::make_shared<FilterSub<Image>>(nh, "rgb/image_raw", queue_size)) {}
+    : impl_(std::make_shared<FilterSub<Image>>(nh, "rgb/image_raw", rclcpp::QoS(queue_size))) {}
+
+ColorSubscriber::ColorSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos)
+    : impl_(std::make_shared<FilterSub<Image>>(nh, "rgb/image_raw", qos)) {}
 
 ColorSubscriber::~ColorSubscriber() = default;
 
@@ -66,8 +69,10 @@ void ColorSubscriber::fillInput(const Image& img, ImageInputPacket& packet) cons
 DepthSubscriber::DepthSubscriber() = default;
 
 DepthSubscriber::DepthSubscriber(ianvs::NodeHandle nh, uint32_t queue_size)
-    : impl_(std::make_shared<FilterSub<Image>>(
-          nh, "depth_registered/image_rect", queue_size)) {}
+    : impl_(std::make_shared<FilterSub<Image>>(nh, "depth_registered/image_rect", rclcpp::QoS(queue_size))) {}
+
+DepthSubscriber::DepthSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos)
+    : impl_(std::make_shared<FilterSub<Image>>(nh, "depth_registered/image_rect", qos)) {}
 
 DepthSubscriber::~DepthSubscriber() = default;
 
@@ -86,7 +91,12 @@ void DepthSubscriber::fillInput(const Image& img, ImageInputPacket& packet) cons
 LabelSubscriber::LabelSubscriber() = default;
 
 LabelSubscriber::LabelSubscriber(ianvs::NodeHandle nh, uint32_t queue_size)
-    : impl_(std::make_shared<FilterSub<Image>>(nh, "semantic/image_raw", queue_size)) {}
+    : impl_(std::make_shared<FilterSub<sensor_msgs::msg::Image>>(
+          nh, "semantic/image_raw", rclcpp::QoS(queue_size))) {}
+
+LabelSubscriber::LabelSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos)
+    : impl_(std::make_shared<FilterSub<sensor_msgs::msg::Image>>(
+          nh, "semantic/image_raw", qos)) {}
 
 LabelSubscriber::~LabelSubscriber() = default;
 
@@ -106,7 +116,11 @@ FeatureSubscriber::FeatureSubscriber() = default;
 
 FeatureSubscriber::FeatureSubscriber(ianvs::NodeHandle nh, uint32_t queue_size)
     : impl_(std::make_shared<FilterSub<FeatureImage>>(
-          nh, "semantic/image_raw", queue_size)) {}
+          nh, "semantic/image_raw", rclcpp::QoS(queue_size))) {}
+
+FeatureSubscriber::FeatureSubscriber(ianvs::NodeHandle nh, const rclcpp::QoS& qos)
+    : impl_(std::make_shared<FilterSub<FeatureImage>>(
+          nh, "semantic/image_raw", qos)) {}
 
 FeatureSubscriber::~FeatureSubscriber() = default;
 
