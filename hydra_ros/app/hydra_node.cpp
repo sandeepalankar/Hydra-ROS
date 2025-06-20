@@ -40,6 +40,8 @@
 #include <hydra/common/global_info.h>
 #include <ianvs/node_handle_factory.h>
 #include <ianvs/spin_functions.h>
+#include <csignal>
+#include <atomic>
 
 #include "hydra_ros/hydra_ros_pipeline.h"
 
@@ -114,9 +116,18 @@ struct RosSink : google::LogSink {
   rclcpp::Logger logger_;
 };
 
+static std::atomic<bool> g_shutdown_requested(false);
+
+void signal_handler(int) {
+  g_shutdown_requested.store(true);
+}
+
 }  // namespace hydra
 
 int main(int argc, char* argv[]) {
+  // signal handler for graceful shutdown
+  std::signal(SIGINT, hydra::signal_handler);
+  
   config::initContext(argc, argv, true);
   rclcpp::init(argc, argv);
 
@@ -151,21 +162,34 @@ int main(int argc, char* argv[]) {
   ianvs::NodeHandleFactory::addNode("hydra_ros_node", *node);
   hydra::GlobalInfo::instance().setForceShutdown(settings.force_shutdown);
 
-  {  // start hydra scope
+  int ret = 0;
+  try {
     hydra::HydraRosPipeline hydra(settings.robot_id, settings.config_verbosity);
     hydra.init();
-
     hydra.start();
-    ianvs::spinAndWait(nh, settings.exit_after_clock);
+
+    // main loop with shutdown handling
+    rclcpp::WallRate rate(10);  // 10Hz check for shutdown
+    while (rclcpp::ok() && !hydra::g_shutdown_requested.load()) {
+      rclcpp::spin_some(node);
+      rate.sleep();
+    }
+
+    // clean shutdown sequence
+    LOG(INFO) << "Initiating clean shutdown...";
     hydra.stop();
     hydra.save();
-    // TODO(nathan) save full config
     hydra::GlobalInfo::exit();
-  }  // end hydra scope
+
+  } catch (const std::exception& e) {
+    LOG(ERROR) << "Exception during execution: " << e.what();
+    ret = 1;
+  }
 
   if (ros_sink) {
     google::RemoveLogSink(ros_sink.get());
   }
 
-  return 0;
+  rclcpp::shutdown();
+  return ret;
 }
