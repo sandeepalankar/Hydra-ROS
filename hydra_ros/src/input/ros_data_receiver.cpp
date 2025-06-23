@@ -47,21 +47,21 @@ inline std::string getNamespace(const std::string& ns, const std::string& name) 
 rclcpp::QoS QoSConfig::toQoS() const {
   rclcpp::QoS qos(depth);
   
-  // Set reliability
+  // reliability
   if (reliability == "reliable") {
     qos.reliable();
   } else if (reliability == "best_effort") {
     qos.best_effort();
   }
   
-  // Set durability
+  // durability
   if (durability == "transient_local") {
     qos.transient_local();
   } else if (durability == "volatile") {
     qos.durability_volatile();
   }
   
-  // Set history
+  // history
   if (history == "keep_all") {
     qos.keep_all();
   } else if (history == "keep_last") {

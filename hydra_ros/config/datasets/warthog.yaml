@@ -13,7 +13,7 @@ input:
           history: keep_last
       sensor:
         type: camera_info
-        min_range: 0.1
+        min_range: 1.0
         max_range: 5.0
         extrinsics:
           type: ros

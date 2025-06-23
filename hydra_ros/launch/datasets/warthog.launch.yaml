@@ -7,6 +7,7 @@ launch:
   - arg: {name: log_prefix, default: '$(var robot_name)'}
   - arg: {name: enable_lcd, default: 'false', description: Enable loop closure detection}
   - arg: {name: glog_verbosity, default: '0', description: Logging verbosity}
+  - arg: {name: use_visualizer, default: 'true', description: Enable visualizer}
 
   - set_remap: {from: hydra/input/left_cam/depth_registered/image_rect, to: /$(var robot_name)/sensors/multisense_front/left/depth}
   - set_remap: {from: hydra/input/left_cam/rgb/image_raw, to: /$(var robot_name)/sensors/multisense_front/aux/image_rect_color}
@@ -40,3 +41,19 @@ launch:
         - {name: enable_lcd, value: $(var enable_lcd)}
         - {name: glog_verbosity, value: $(var glog_verbosity)}
         - {name: extra_yaml, value: $(var extra_yaml_no_gt)}
+        - {name: include_visualizer, value: 'false'}
+
+  # launch visualizer and rviz
+  - include:
+      if: $(var use_visualizer)
+      file: $(find-pkg-share hydra_visualizer)/launch/streaming_visualizer.launch.yaml
+      arg:
+        - {name: visualizer_frame, value: $(var robot_name)/map}
+        - {name: start_rviz, value: 'false'}
+
+  - node:
+      if: $(var use_visualizer)
+      name: rviz
+      pkg: rviz2
+      exec: rviz2
+      args: -d $(find-pkg-share hydra_visualizer)/rviz/warthog.rviz
