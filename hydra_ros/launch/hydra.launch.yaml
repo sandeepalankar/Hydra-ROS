@@ -60,3 +60,4 @@ launch:
       arg:
         - {name: visualizer_frame, value: $(var map_frame)}
         - {name: start_rviz, value: 'false'}
+        - {name: rviz_path, value: $(find-pkg-share hydra_visualizer)/rviz/$(var dataset).rviz}

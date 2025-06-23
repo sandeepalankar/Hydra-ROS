@@ -9,44 +9,17 @@ launch:
   - arg: {name: glog_verbosity, default: '0', description: Logging verbosity}
   - arg: {name: use_visualizer, default: 'true', description: Enable visualizer}
 
-  # Front camera remappings
-  - set_remap: {from: hydra/input/front_cam/depth_registered/image_rect, to: /$(var robot_name)/multisense_front/left/depth}
-  - set_remap: {from: hydra/input/front_cam/rgb/image_raw, to: /$(var robot_name)/multisense_front/aux/image_rect_color}
-  - set_remap: {from: hydra/input/front_cam/rgb/camera_info, to: /$(var robot_name)/multisense_front/aux/image_rect_color/camera_info}
-  - set_remap: {from: hydra/input/front_cam/depth/camera_info, to: /$(var robot_name)/multisense_front/left/depth/camera_info}
-  - set_remap: {from: hydra/input/front_cam/semantic/image_raw, to: semantic/front_camera/image_raw}
+  # Camera remappings
+  - set_remap: {from: hydra/input/left_cam/depth_registered/image_rect, to: /$(var robot_name)/multisense_front/left/depth}
+  - set_remap: {from: hydra/input/left_cam/rgb/image_raw, to: /$(var robot_name)/multisense_front/aux/image_rect_color}
+  - set_remap: {from: hydra/input/left_cam/rgb/camera_info, to: /$(var robot_name)/multisense_front/aux/image_rect_color/camera_info}
+  - set_remap: {from: hydra/input/left_cam/depth/camera_info, to: /$(var robot_name)/multisense_front/left/depth/camera_info}
+  - set_remap: {from: hydra/input/left_cam/semantic/image_raw, to: semantic/image_raw}
 
-  # Left camera remappings
-  - set_remap: {from: hydra/input/left_cam/depth_registered/image_rect, to: /$(var robot_name)/multisense_left/left/depth}
-  - set_remap: {from: hydra/input/left_cam/rgb/image_raw, to: /$(var robot_name)/multisense_left/aux/image_rect_color}
-  - set_remap: {from: hydra/input/left_cam/rgb/camera_info, to: /$(var robot_name)/multisense_left/aux/image_rect_color/camera_info}
-  - set_remap: {from: hydra/input/left_cam/depth/camera_info, to: /$(var robot_name)/multisense_left/left/depth/camera_info}
-  - set_remap: {from: hydra/input/left_cam/semantic/image_raw, to: semantic/left_camera/image_raw}
-
-  # Right camera remappings
-  - set_remap: {from: hydra/input/right_cam/depth_registered/image_rect, to: /$(var robot_name)/multisense_right/left/depth}
-  - set_remap: {from: hydra/input/right_cam/rgb/image_raw, to: /$(var robot_name)/multisense_right/aux/image_rect_color}
-  - set_remap: {from: hydra/input/right_cam/rgb/camera_info, to: /$(var robot_name)/multisense_right/aux/image_rect_color/camera_info}
-  - set_remap: {from: hydra/input/right_cam/depth/camera_info, to: /$(var robot_name)/multisense_right/left/depth/camera_info}
-  - set_remap: {from: hydra/input/right_cam/semantic/image_raw, to: semantic/right_camera/image_raw}
-
-  # Back camera remappings
-  - set_remap: {from: hydra/input/back_cam/depth_registered/image_rect, to: /$(var robot_name)/multisense_back/left/depth}
-  - set_remap: {from: hydra/input/back_cam/rgb/image_raw, to: /$(var robot_name)/multisense_back/aux/image_rect_color}
-  - set_remap: {from: hydra/input/back_cam/rgb/camera_info, to: /$(var robot_name)/multisense_back/aux/image_rect_color/camera_info}
-  - set_remap: {from: hydra/input/back_cam/depth/camera_info, to: /$(var robot_name)/multisense_back/left/depth/camera_info}
-  - set_remap: {from: hydra/input/back_cam/semantic/image_raw, to: semantic/back_camera/image_raw}
-
-  # QoS settings for all cameras
+  # QoS settings
   - let: {name: extra_yaml_no_gt, value: '{qos_overrides: {
-    "/hydra/input/front_cam/rgb/image_raw": {reliability: best_effort, durability: volatile, history: keep_last},
-    "/hydra/input/front_cam/depth_registered/image_rect": {reliability: best_effort, durability: volatile, history: keep_last},
     "/hydra/input/left_cam/rgb/image_raw": {reliability: best_effort, durability: volatile, history: keep_last},
-    "/hydra/input/left_cam/depth_registered/image_rect": {reliability: best_effort, durability: volatile, history: keep_last},
-    "/hydra/input/right_cam/rgb/image_raw": {reliability: best_effort, durability: volatile, history: keep_last},
-    "/hydra/input/right_cam/depth_registered/image_rect": {reliability: best_effort, durability: volatile, history: keep_last},
-    "/hydra/input/back_cam/rgb/image_raw": {reliability: best_effort, durability: volatile, history: keep_last},
-    "/hydra/input/back_cam/depth_registered/image_rect": {reliability: best_effort, durability: volatile, history: keep_last}
+    "/hydra/input/left_cam/depth_registered/image_rect": {reliability: best_effort, durability: volatile, history: keep_last}
   }}'}
 
   # set up semantic inference if not using ground truth semantics
@@ -81,11 +54,5 @@ launch:
       file: $(find-pkg-share hydra_visualizer)/launch/streaming_visualizer.launch.yaml
       arg:
         - {name: visualizer_frame, value: $(var robot_name)/map}
-        - {name: start_rviz, value: 'false'}
-
-  - node:
-      if: $(var use_visualizer)
-      name: rviz
-      pkg: rviz2
-      exec: rviz2
-      args: -d $(find-pkg-share hydra_visualizer)/rviz/rfv.rviz
+        - {name: start_rviz, value: 'true'}
+        - {name: rviz_path, value: $(find-pkg-share hydra_visualizer)/rviz/rfv.rviz}

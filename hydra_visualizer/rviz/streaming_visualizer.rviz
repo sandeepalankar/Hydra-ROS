@@ -124,12 +124,12 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep All
         Reliability Policy: Best Effort
-        Value: /willow/sensors/multisense_front/aux/image_rect_color
+        Value: /crl_rzr/multisense_front/aux/image_rect_color
       Value: true
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
-    Fixed Frame: willow/base_link
+    Fixed Frame: crl_rzr/map
     Frame Rate: 30
   Name: root
   Tools:
